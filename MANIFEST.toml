@@ -1,0 +1,54 @@
+uuid = "aa0f0588-84e0-4f5b-aa32-17657b4434a1"
+name = "Persistent Variables"
+authors = ["Bob Swift"]
+version = "1.1"
+description = "This plugin provides the ability to store and retrieve script variables that persist across tracks and albums."
+api = ['3.0']
+license = "GPL-2.0-or-later"
+license_url = "https://www.gnu.org/licenses/gpl-2.0.html"
+long_description = """
+This plugin provides the ability to store and retrieve script variables that persist across tracks and albums.
+This allows things like finding and storing the earliest recording date of all of the tracks on an album.
+
+There are two types of persistent variables maintained - album variables and session variables. Album variables
+persist across all tracks on an album. Each album's information is stored separately, and is reset when the
+album is refreshed. The information is cleared when an album is removed. Session variables persist across all
+albums and tracks, and are cleared when Picard is shut down or restarted.
+
+This plugin adds eight new scripting functions to allow management of persistent script variables.
+"""
+categories = ["metadata"]
+homepage = "https://picard-plugins-user-guides.readthedocs.io/en/latest/persistent_variables/user_guide.html"
+
+[name_i18n]
+de = "Persistente Variablen"
+fr = "Variables persistantes"
+
+[description_i18n]
+de = "Dieses Plugin bietet die Möglichkeit, Skriptvariablen zu speichern und abzurufen, die über Titel und Alben hinweg bestehen bleiben."
+fr = "Ce plugin permet de stocker et de récupérer des variables de script qui persistent d'une piste à l'autre et d'un album à l'autre."
+
+[long_description_i18n]
+de = """
+Dieses Plugin bietet die Möglichkeit, Skriptvariablen zu speichern und abzurufen, die über Titel und Alben hinweg bestehen bleiben.
+So können beispielsweise das früheste Aufnahmedatum aller Titel eines Albums ermittelt und gespeichert werden.
+
+Es gibt zwei Arten von persistenten Variablen: Albumvariablen und Sitzungsvariablen. Albumvariablen bleiben über alle Titel eines Albums
+hinweg bestehen. Die Informationen zu jedem Album werden separat gespeichert und bei einer Aktualisierung des Albums zurückgesetzt. Die
+Informationen werden gelöscht, wenn ein Album entfernt wird. Sitzungsvariablen bleiben über alle Alben und Titel hinweg bestehen und werden
+gelöscht, wenn Picard beendet oder neu gestartet wird.
+
+Dieses Plugin fügt acht neue Skriptfunktionen hinzu, die die Verwaltung persistenter Skriptvariablen ermöglichen.
+"""
+
+fr = """
+Ce plugin permet de stocker et de récupérer des variables de script qui persistent d'une piste à l'autre et d'un album à l'autre.
+Cela permet, par exemple, de trouver et de stocker la date d'enregistrement la plus ancienne de toutes les pistes d'un album.
+
+Il existe deux types de variables persistantes : les variables d'album et les variables de session. Les variables d'album persistent
+sur toutes les pistes d'un album. Les informations de chaque album sont stockées séparément et sont réinitialisées lorsque l'album
+est actualisé. Les informations sont effacées lorsqu'un album est supprimé. Les variables de session persistent sur tous les albums et
+toutes les pistes, et sont effacées lorsque Picard est fermé ou redémarré.
+
+Ce plugin ajoute huit nouvelles fonctions de script permettant de gérer les variables de script persistantes.
+"""
