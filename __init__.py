@@ -196,8 +196,7 @@ class ViewPersistentVariables(BaseAction):
     NAME = 'View persistent variables'
 
     def __init__(self, api: PluginApi = None):
-        super().__init__()
-        self.api = api
+        super().__init__(api=api)
 
     def callback(self, objs):
         obj = objs[0]
