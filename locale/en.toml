@@ -1,0 +1,18 @@
+"action.name" = "View persistent variables"
+"help.clear_a" = "`$clear_a()`\n\nClears all album variables for the current album."
+"help.clear_s" = "`$clear_s()`\n\nClears all session variables."
+"help.get_a" = "`$get_a(name)`\n\nGets the value of the album variable `name`."
+"help.get_s" = "`$get_s(name)`\n\nGets the value of the session variable `name`."
+"help.set_a" = "`$set_a(name,value)`\n\nSets the album variable `name` to `value`."
+"help.set_s" = "`$set_s(name,value)`\n\nSets the session variable `name` to `value`."
+"help.unset_a" = "`$unset_a(name)`\n\nClears the album variable `name`."
+"help.unset_s" = "`$unset_s(name)`\n\nClears the session variable `name`."
+"ui.header0" = "Variable"
+"ui.header1" = "Value"
+"ui.section_album" = "Album Variables"
+"ui.section_session" = "Session Variables"
+"ui.title" = "Persistent Variables"
+
+["ui.item_count"]
+one = "{n:,} item"
+other = "{n:,} items"

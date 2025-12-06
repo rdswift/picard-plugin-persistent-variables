@@ -36,9 +36,6 @@ from .ui_persistent_variables_dialog import (
 )
 
 
-PLUGIN_NAME = "Persistent Variables"
-
-
 class PersistentVariables:
     album_variables = {}
     session_variables = {}
@@ -148,7 +145,7 @@ def func_clear_s(parser):
 
 def func_unset_a(parser, name):
     album_id = _get_album_id(parser)
-    ApiHelper.get_api().logger.debug("%s: Unsetting album '%s' variable '%s'", PLUGIN_NAME, album_id, normalize_tagname(name))
+    ApiHelper.get_api().logger.debug("Unsetting album '%s' variable '%s'", album_id, normalize_tagname(name))
     if album_id:
         PersistentVariables.unset_album_var(album_id, normalize_tagname(name))
     return ""
@@ -156,7 +153,7 @@ def func_unset_a(parser, name):
 
 def func_set_a(parser, name, value):
     album_id = _get_album_id(parser)
-    ApiHelper.get_api().logger.debug("%s: Setting album '%s' persistent variable '%s' to '%s'", PLUGIN_NAME, album_id, normalize_tagname(name), value)
+    ApiHelper.get_api().logger.debug("Setting album '%s' persistent variable '%s' to '%s'", album_id, normalize_tagname(name), value)
     if album_id:
         PersistentVariables.set_album_var(album_id, normalize_tagname(name), value)
     return ""
@@ -164,7 +161,7 @@ def func_set_a(parser, name, value):
 
 def func_get_a(parser, name):
     album_id = _get_album_id(parser)
-    ApiHelper.get_api().logger.debug("%s: Getting album '%s' persistent variable '%s'", PLUGIN_NAME, album_id, normalize_tagname(name))
+    ApiHelper.get_api().logger.debug("Getting album '%s' persistent variable '%s'", album_id, normalize_tagname(name))
     if album_id:
         return PersistentVariables.get_album_var(album_id, normalize_tagname(name))
     return ""
@@ -172,7 +169,7 @@ def func_get_a(parser, name):
 
 def func_clear_a(parser):
     album_id = _get_album_id(parser)
-    ApiHelper.get_api().logger.debug("%s: Clearing album '%s' persistent variables dictionary", PLUGIN_NAME, album_id)
+    ApiHelper.get_api().logger.debug("Clearing album '%s' persistent variables dictionary", album_id)
     if album_id:
         PersistentVariables.clear_album_vars(album_id)
     return ""
@@ -180,15 +177,13 @@ def func_clear_a(parser):
 
 def initialize_album_dict(api: PluginApi, album, album_metadata, release_metadata):
     album_id = str(album.id)
-    # self.api.logger.debug("{0}: Initializing album '{1}' persistent variables dictionary".format("Persistent Variables", album_id,))
-    api.logger.debug("%s: Initializing album '%s' persistent variables dictionary", PLUGIN_NAME, album_id)
+    api.logger.debug("Initializing album '%s' persistent variables dictionary", album_id)
     PersistentVariables.clear_album_vars(album_id)
 
 
 def destroy_album_dict(api: PluginApi, album):
     album_id = str(album.id)
-    # self.api.logger.debug("{0}: Destroying album '{1}' persistent variables dictionary".format("Persistent Variables", album_id,))
-    api.logger.debug("%s: Destroying album '%s' persistent variables dictionary", PLUGIN_NAME, album_id)
+    api.logger.debug("Destroying album '%s' persistent variables dictionary", album_id)
     PersistentVariables.unset_album_dict(album_id)
 
 
@@ -197,25 +192,34 @@ class ViewPersistentVariables(BaseAction):
 
     def __init__(self, api: PluginApi = None):
         super().__init__(api=api)
+        self.setText(api.tr("action.name", "View persistent variables"))
 
     def callback(self, objs):
         obj = objs[0]
         files = self.api.tagger.get_files_from_objects(objs)
         if files:
             obj = files[0]
-        dialog = ViewPersistentVariablesDialog(obj)
+        dialog = ViewPersistentVariablesDialog(obj, api=self.api)
         dialog.exec()
 
 
 class ViewPersistentVariablesDialog(QtWidgets.QDialog):
 
-    def __init__(self, obj, parent=None):
-        QtWidgets.QDialog.__init__(self, parent)
+    def __init__(self, obj, parent=None, api: PluginApi = None):
+        super().__init__(parent=parent)
+        self.api = api
         self.ui = Ui_PersistentVariablesDialog()
         self.ui.setupUi(self)
-        self.ui.buttonBox.accepted.connect(self.accept)
+        font = self.ui.metadata_table.font()
+        font.setBold(True)
+        self.ui.metadata_table.horizontalHeaderItem(0).setFont(font)
+        self.ui.metadata_table.horizontalHeaderItem(1).setFont(font)
+        self.ui.metadata_table.horizontalHeaderItem(0).setText(self.api.tr('ui.header0', "Variable"))
+        self.ui.metadata_table.horizontalHeaderItem(1).setText(self.api.tr('ui.header1', "Value"))
+        self.ui.buttonBox.rejected.connect(self.reject)
         self.album_id = ""
-        self.setWindowTitle("Persistent Variables")
+        self.setWindowTitle(self.api.tr('ui.title', "Persistent Variables"))
+
         if isinstance(obj, Album):
             self.album_id = str(obj.id)
         if isinstance(obj, File):
@@ -224,6 +228,7 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
         elif isinstance(obj, Track):
             if obj.album:
                 self.album_id = str(obj.album.id)
+
         album_dict = PersistentVariables.get_album_dict(self.album_id)
         album_count = len(album_dict)
         session_dict = PersistentVariables.get_session_dict()
@@ -235,14 +240,14 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
         self.value_flags = value_example.flags()
         table.setRowCount(album_count + session_count + 2)
         i = 0
-        self.add_separator_row(table, i, "Album Variables", album_count)
+        self.add_separator_row(table, i, self.api.tr('ui.section_album', "Album Variables"), album_count)
         i += 1
         for key in sorted(album_dict.keys()):
             key_item, value_item = self.get_table_items(table, i)
             key_item.setText(key)
             value_item.setText(album_dict[key])
             i += 1
-        self.add_separator_row(table, i, "Session Variables", session_count)
+        self.add_separator_row(table, i, self.api.tr('ui.section_session', "Session Variables"), session_count)
         i += 1
         for key in sorted(session_dict.keys()):
             key_item, value_item = self.get_table_items(table, i)
@@ -256,7 +261,7 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
         font.setBold(True)
         key_item.setFont(font)
         key_item.setText(title)
-        value_item.setText("{0} item{1}".format(count, "" if count == 1 else "s",))
+        value_item.setText(self.api.trn('ui.item_count', "{n:,} item", "{n:,} items", n=count))
 
     def get_table_items(self, table, i):
         key_item = table.item(i, 0)
@@ -280,42 +285,42 @@ def enable(api: PluginApi):
     api.register_script_function(
         func_set_a,
         name='set_a',
-        documentation="`$set_a(name,value)`\n\nSets the album variable `name` to `value`.",
+        documentation=api.tr('help.set_a', "`$set_a(name,value)`\n\nSets the album variable `name` to `value`."),
     )
     api.register_script_function(
         func_unset_a,
         name='unset_a',
-        documentation="`$unset_a(name)`\n\nClears the album variable `name`.",
+        documentation=api.tr('help.unset_a', "`$unset_a(name)`\n\nClears the album variable `name`."),
     )
     api.register_script_function(
         func_get_a,
         name='get_a',
-        documentation="`$get_a(name)`\n\nGets the value of the album variable `name`.",
+        documentation=api.tr('help.get_a', "`$get_a(name)`\n\nGets the value of the album variable `name`."),
     )
     api.register_script_function(
         func_clear_a,
         name='clear_a',
-        documentation="`$clear_a()`\n\nClears all album variables for the current album.",
+        documentation=api.tr('help.clear_a', "`$clear_a()`\n\nClears all album variables for the current album."),
     )
     api.register_script_function(
         func_set_s,
         name='set_s',
-        documentation="`$set_s(name,value)`\n\nSets the session variable `name` to `value`.",
+        documentation=api.tr('help.set_s', "`$set_s(name,value)`\n\nSets the session variable `name` to `value`."),
     )
     api.register_script_function(
         func_unset_s,
         name='unset_s',
-        documentation="`$unset_s(name)`\n\nClears the session variable `name`.",
+        documentation=api.tr('help.unset_s', "`$unset_s(name)`\n\nClears the session variable `name`."),
     )
     api.register_script_function(
         func_get_s,
         name='get_s',
-        documentation="`$get_s(name)`\n\nGets the value of the session variable `name`.",
+        documentation=api.tr('help.get_s', "`$get_s(name)`\n\nGets the value of the session variable `name`."),
     )
     api.register_script_function(
         func_clear_s,
         name='clear_s',
-        documentation="`$clear_s()`\n\nClears all session variables.",
+        documentation=api.tr('help.clear_s', "`$clear_s()`\n\nClears all session variables."),
     )
 
     # Register the processers
