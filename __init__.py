@@ -190,9 +190,9 @@ def destroy_album_dict(api: PluginApi, album):
 class ViewPersistentVariables(BaseAction):
     NAME = 'View persistent variables'
 
-    def __init__(self, api: PluginApi = None):
-        super().__init__(api=api)
-        self.setText(api.tr("action.name", "View persistent variables"))
+    def __init__(self):
+        super().__init__(api=self.api)
+        self.setText(self.api.tr("action.name", "View persistent variables"))
 
     def callback(self, objs):
         obj = objs[0]
