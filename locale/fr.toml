@@ -1,4 +1,4 @@
-"action.name" = "Afficher les variables persistantes"
+"action.title" = "Afficher les variables persistantes"
 "help.clear_a" = "`$clear_a()`\n\nEfface toutes les variables de l'album actuel."
 "help.clear_s" = "`$clear_s()`\n\nEfface toutes les variables de session."
 "help.get_a" = "`$get_a(nom)`\n\nRécupère la valeur de la variable d'album `nom`."

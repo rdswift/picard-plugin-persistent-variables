@@ -28,6 +28,7 @@ from picard.plugin3.api import (
     File,
     PluginApi,
     Track,
+    t_,
 )
 from picard.script.parser import normalize_tagname
 
@@ -188,11 +189,8 @@ def destroy_album_dict(api: PluginApi, album):
 
 
 class ViewPersistentVariables(BaseAction):
-    NAME = 'View persistent variables'
 
-    def __init__(self):
-        super().__init__(api=self.api)
-        self.setText(self.api.tr("action.name", "View persistent variables"))
+    TITLE = t_("action.title", "View persistent variables")
 
     def callback(self, objs):
         obj = objs[0]
