@@ -7,12 +7,15 @@
 "help.set_s" = "`$set_s(name,value)`\n\nSets the session variable `name` to `value`."
 "help.unset_a" = "`$unset_a(name)`\n\nClears the album variable `name`."
 "help.unset_s" = "`$unset_s(name)`\n\nClears the session variable `name`."
-"ui.header0" = "Variable"
-"ui.header1" = "Value"
-"ui.section_album" = "Album Variables"
-"ui.section_session" = "Session Variables"
-"ui.title" = "Persistent Variables"
-
-["ui.item_count"]
+"manifest.description" = "This plugin provides the ability to store and retrieve script variables that persist across tracks and albums."
+"manifest.long_description" = "This plugin provides the ability to store and retrieve script variables that persist across tracks and albums.\nThis allows things like finding and storing the earliest recording date of all of the tracks on an album.\n\nThere are two types of persistent variables maintained - album variables and session variables. Album variables\npersist across all tracks on an album. Each album's information is stored separately, and is reset when the\nalbum is refreshed. The information is cleared when an album is removed. Session variables persist across all\nalbums and tracks, and are cleared when Picard is shut down or restarted.\n\nThis plugin adds eight new scripting functions to allow management of persistent script variables.\n"
+"manifest.name" = "Persistent Variables"
+"qt.PersistentVariablesDialog.table.header.value" = "Value"
+"qt.PersistentVariablesDialog.table.header.variable" = "Variable"
+"qt.PersistentVariablesDialog.window.title" = "Persistent Variables"
+"ui.section.album" = "Album Variables"
+"ui.section.session" = "Session Variables"
+["ui.table.item_count"]
 one = "{n:,} item"
 other = "{n:,} items"
+

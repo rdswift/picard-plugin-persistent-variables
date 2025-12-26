@@ -31,10 +31,14 @@ from picard.plugin3.api import (
     t_,
 )
 from picard.script.parser import normalize_tagname
+from picard.util.webbrowser2 import open as open_url
 
 from .ui_persistent_variables_dialog import (
     Ui_PersistentVariablesDialog,
 )
+
+
+USER_GUIDE_URL = "https://picard-plugins-user-guides.readthedocs.io/en/latest/persistent_variables/user_guide.html"
 
 
 class PersistentVariables:
@@ -208,15 +212,9 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
         self.api = api
         self.ui = Ui_PersistentVariablesDialog()
         self.ui.setupUi(self)
-        font = self.ui.metadata_table.font()
-        font.setBold(True)
-        self.ui.metadata_table.horizontalHeaderItem(0).setFont(font)
-        self.ui.metadata_table.horizontalHeaderItem(1).setFont(font)
-        self.ui.metadata_table.horizontalHeaderItem(0).setText(self.api.tr('ui.header0', "Variable"))
-        self.ui.metadata_table.horizontalHeaderItem(1).setText(self.api.tr('ui.header1', "Value"))
         self.ui.buttonBox.rejected.connect(self.reject)
+        self.ui.buttonBox.helpRequested.connect(self.show_help)
         self.album_id = ""
-        self.setWindowTitle(self.api.tr('ui.title', "Persistent Variables"))
 
         if isinstance(obj, Album):
             self.album_id = str(obj.id)
@@ -238,14 +236,14 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
         self.value_flags = value_example.flags()
         table.setRowCount(album_count + session_count + 2)
         i = 0
-        self.add_separator_row(table, i, self.api.tr('ui.section_album', "Album Variables"), album_count)
+        self.add_separator_row(table, i, self.api.tr('ui.section.album', "Album Variables"), album_count)
         i += 1
         for key in sorted(album_dict.keys()):
             key_item, value_item = self.get_table_items(table, i)
             key_item.setText(key)
             value_item.setText(album_dict[key])
             i += 1
-        self.add_separator_row(table, i, self.api.tr('ui.section_session', "Session Variables"), session_count)
+        self.add_separator_row(table, i, self.api.tr('ui.section.session', "Session Variables"), session_count)
         i += 1
         for key in sorted(session_dict.keys()):
             key_item, value_item = self.get_table_items(table, i)
@@ -259,7 +257,7 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
         font.setBold(True)
         key_item.setFont(font)
         key_item.setText(title)
-        value_item.setText(self.api.trn('ui.item_count', "{n:,} item", "{n:,} items", n=count))
+        value_item.setText(self.api.trn('ui.table.item_count', "{n:,} item", "{n:,} items", n=count))
 
     def get_table_items(self, table, i):
         key_item = table.item(i, 0)
@@ -273,6 +271,9 @@ class ViewPersistentVariablesDialog(QtWidgets.QDialog):
             value_item.setFlags(self.value_flags)
             table.setItem(i, 1, value_item)
         return key_item, value_item
+
+    def show_help(self):
+        open_url(USER_GUIDE_URL)
 
 
 def enable(api: PluginApi):

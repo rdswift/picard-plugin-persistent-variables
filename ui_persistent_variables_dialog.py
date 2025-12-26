@@ -24,13 +24,11 @@ class Ui_PersistentVariablesDialog(object):
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setBold(True)
-        font.setWeight(75)
         item.setFont(font)
         self.metadata_table.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setBold(True)
-        font.setWeight(75)
         item.setFont(font)
         self.metadata_table.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
@@ -47,7 +45,7 @@ class Ui_PersistentVariablesDialog(object):
         self.metadata_table.verticalHeader().setMinimumSectionSize(20)
         self.verticalLayout.addWidget(self.metadata_table)
         self.buttonBox = QtWidgets.QDialogButtonBox(parent=PersistentVariablesDialog)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Close)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Close | QtWidgets.QDialogButtonBox.StandardButton.Help)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout.addWidget(self.buttonBox)
 
@@ -56,10 +54,11 @@ class Ui_PersistentVariablesDialog(object):
 
     def retranslateUi(self, PersistentVariablesDialog):
         _translate = QtCore.QCoreApplication.translate
+        PersistentVariablesDialog.setWindowTitle(_translate("PersistentVariablesDialog", "window.title"))
         item = self.metadata_table.horizontalHeaderItem(0)
-        item.setText(_translate("PersistentVariablesDialog", "Variable"))
+        item.setText(_translate("PersistentVariablesDialog", "table.header.variable"))
         item = self.metadata_table.horizontalHeaderItem(1)
-        item.setText(_translate("PersistentVariablesDialog", "Value"))
+        item.setText(_translate("PersistentVariablesDialog", "table.header.value"))
         __sortingEnabled = self.metadata_table.isSortingEnabled()
         self.metadata_table.setSortingEnabled(False)
         self.metadata_table.setSortingEnabled(__sortingEnabled)

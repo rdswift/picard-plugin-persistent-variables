@@ -10,6 +10,9 @@
     <height>450</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>window.title</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTableWidget" name="metadata_table">
@@ -46,7 +49,7 @@
      <row/>
      <column>
       <property name="text">
-       <string>Variable</string>
+       <string>table.header.variable</string>
       </property>
       <property name="font">
        <font>
@@ -57,7 +60,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Value</string>
+       <string>table.header.value</string>
       </property>
       <property name="font">
        <font>
@@ -75,6 +78,9 @@
       </property>
      </item>
      <item row="0" column="1">
+      <property name="text">
+       <string/>
+      </property>
       <property name="flags">
        <set>ItemIsSelectable|ItemIsEnabled</set>
       </property>
@@ -84,7 +90,7 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Help</set>
      </property>
     </widget>
    </item>
