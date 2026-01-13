@@ -31,6 +31,7 @@ from picard.plugin3.api import (
     t_,
 )
 from picard.script.parser import normalize_tagname
+from picard.util import iter_files_from_objects
 from picard.util.webbrowser2 import open as open_url
 
 from .ui_persistent_variables_dialog import (
@@ -198,7 +199,7 @@ class ViewPersistentVariables(BaseAction):
 
     def callback(self, objs):
         obj = objs[0]
-        files = self.api.tagger.get_files_from_objects(objs)
+        files = list(iter_files_from_objects(objs))
         if files:
             obj = files[0]
         dialog = ViewPersistentVariablesDialog(obj, api=self.api)
