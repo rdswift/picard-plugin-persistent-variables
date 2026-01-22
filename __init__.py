@@ -285,42 +285,50 @@ def enable(api: PluginApi):
     api.register_script_function(
         func_set_a,
         name='set_a',
-        documentation=api.tr('help.set_a', "`$set_a(name,value)`\n\nSets the album variable `name` to `value`."),
+        signature=api.tr('help.set_a.signature', "$set_a(name,value)"),
+        documentation=api.tr('help.set_a.documentation', "Sets the album variable `name` to `value`."),
     )
     api.register_script_function(
         func_unset_a,
         name='unset_a',
-        documentation=api.tr('help.unset_a', "`$unset_a(name)`\n\nClears the album variable `name`."),
+        signature=api.tr('help.unset_a.signature', "$unset_a(name)"),
+        documentation=api.tr('help.unset_a.documentation', "Clears the album variable `name`."),
     )
     api.register_script_function(
         func_get_a,
         name='get_a',
-        documentation=api.tr('help.get_a', "`$get_a(name)`\n\nGets the value of the album variable `name`."),
+        signature=api.tr('help.get_a.signature', "$get_a(name)"),
+        documentation=api.tr('help.get_a.documentation', "Gets the value of the album variable `name`."),
     )
     api.register_script_function(
         func_clear_a,
         name='clear_a',
-        documentation=api.tr('help.clear_a', "`$clear_a()`\n\nClears all album variables for the current album."),
+        signature="$clear_a()",
+        documentation=api.tr('help.clear_a.documentation', "Clears all album variables for the current album."),
     )
     api.register_script_function(
         func_set_s,
         name='set_s',
-        documentation=api.tr('help.set_s', "`$set_s(name,value)`\n\nSets the session variable `name` to `value`."),
+        signature=api.tr('help.set_s.signature', "$set_s(name,value)"),
+        documentation=api.tr('help.set_s.documentation', "Sets the session variable `name` to `value`."),
     )
     api.register_script_function(
         func_unset_s,
         name='unset_s',
-        documentation=api.tr('help.unset_s', "`$unset_s(name)`\n\nClears the session variable `name`."),
+        signature=api.tr('help.unset_s.signature', "$unset_s(name)"),
+        documentation=api.tr('help.unset_s.documentation', "Clears the session variable `name`."),
     )
     api.register_script_function(
         func_get_s,
         name='get_s',
-        documentation=api.tr('help.get_s', "`$get_s(name)`\n\nGets the value of the session variable `name`."),
+        signature=api.tr('help.get_s.signature', "$get_s(name)"),
+        documentation=api.tr('help.get_s.documentation', "Gets the value of the session variable `name`."),
     )
     api.register_script_function(
         func_clear_s,
         name='clear_s',
-        documentation=api.tr('help.clear_s', "`$clear_s()`\n\nClears all session variables."),
+        signature="$clear_s()",
+        documentation=api.tr('help.clear_s.documentation', "Clears all session variables."),
     )
 
     # Register the processers
