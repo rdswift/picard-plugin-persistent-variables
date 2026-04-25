@@ -19,6 +19,7 @@ This plugin adds eight new scripting functions to allow management of persistent
 """
 categories = ["metadata"]
 homepage = "https://picard-plugins-user-guides.readthedocs.io/en/latest/persistent_variables/user_guide.html"
+report_bugs_to = "https://github.com/rdswift/picard-plugin-persistent-variables/issues"
 
 [name_i18n]
 de = "Persistente Variablen"
