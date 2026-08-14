@@ -5,3 +5,7 @@ This plugin provides the ability to store and retrieve script variables that per
 There are two types of persistent variables maintained - album variables and session variables. Album variables persist across all tracks on an album.  Each album's information is stored separately, and is reset when the album is refreshed. The information is cleared when an album is removed.  Session variables persist across all albums and tracks, and are cleared when Picard is shut down or restarted.
 
 Please see the [User Guide](https://picard-plugins-user-guides.readthedocs.io/en/latest/persistent_variables/user_guide.html) for more information, including usage examples.
+
+## Contributing
+
+Please see the [Contribution Guidelines for MusicBrainz Picard Plugins](https://github.com/metabrainz/picard-plugins-registry/blob/main/PLUGIN_CONTRIBUTING.md) on how to help with development of this plugin.
